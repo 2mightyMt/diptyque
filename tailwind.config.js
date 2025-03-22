@@ -64,8 +64,9 @@ export default {
         mobile: { max: '767px' },
       },
       spacing: {
-        // pc헤더높이
-        'header-h': '128px',
+        // 헤더높이
+        'header-h': '128px', // pc
+        'header-h-m': '76px', // 태블릿, 모바일
 
         // 제목-내용 사이 간격
         'cont-gap': '40px',

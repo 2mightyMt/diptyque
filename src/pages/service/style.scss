@@ -1,26 +1,90 @@
 @import '../../styles/globals';
 
 .service-page-container {
-  padding: 0 240px;
+  padding: 0 12.5vw;
 
   section {
-    margin-top: 200px;
-    margin-bottom: 200px;
+    margin: $sec-gap-pc 0;
     text-align: center;
   }
 
+  @include desktop-less {
+    padding: 0 7.8125vw;
+
+    section {
+      margin: $sec-gap-tablet 0;
+    }
+  }
+
+  @include mobile-only {
+    padding: 4.1026vw;
+
+    section {
+      margin: $sec-gap-mobile 0;
+    }
+  }
+
   .first-sec {
-    margin-top: 280px;
+    margin-top: calc($sec-gap-pc + $header-h);
+
+    @include desktop-less {
+      margin-top: calc($sec-gap-tablet + $header-h-m);
+    }
+
+    @include mobile-only {
+      margin-top: calc($sec-gap-mobile + $header-h-m);
+    }
   }
 
   h2 {
     @include pc-heading1;
 
     margin-bottom: 40px;
+
+    @include desktop-less {
+      @include tm-heading1;
+    }
+
+    @include mobile-only {
+      @include tm-heading2;
+    }
   }
 
   p {
     @include pc-body2;
+
+    @include desktop-less {
+      @include tm-body2;
+    }
+
+    @include mobile-only {
+      @include tm-body3;
+    }
+  }
+}
+
+.engraving-sec {
+  @include desktop-less {
+    h2 {
+      font-size: 3.6458vw;
+      margin-bottom: 2.0833vw;
+    }
+
+    p {
+      font-size: 1.8229vw;
+    }
+  }
+
+  @include mobile-only {
+    h2 {
+      @include tm-heading2;
+
+      margin-bottom: 40px;
+    }
+
+    p {
+      @include tm-body3;
+    }
   }
 }
 
@@ -35,22 +99,69 @@
   gap: 24px;
   justify-content: center;
   align-items: center;
+
+  @include mobile-only {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .service-sec-img-size1 {
-  width: 44.25rem;
-  height: 49.9375rem;
+  flex-shrink: 0;
+  width: 50%;
+  aspect-ratio: 708 / 799;
+  background-size: cover;
+  background-position: center center;
+
+  @include mobile-only {
+    width: 100%;
+  }
+}
+
+.gift-sec-txt {
+  @include desktop-less {
+    h2 {
+      font-size: 3.6458vw;
+      margin-bottom: 2.0833vw;
+    }
+
+    p {
+      font-size: 1.8229vw;
+    }
+  }
+}
+
+.gift-sec-txt-mobile {
+  flex-direction: column;
+  gap: 16px;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    div {
+      width: 50%;
+      aspect-ratio: 1 / 1;
+      background-size: cover;
+    }
+
+    p {
+      @include tm-body3;
+    }
+  }
 }
 
 .gift-sec-swiper {
-  width: 67.125rem;
+  width: 55.9375vw;
 
   .swiper-slide {
-    width: 21.375rem;
+    width: 342px;
 
     div {
       width: 100%;
-      height: 22.4375rem;
+      aspect-ratio: 342 / 359;
+      background-size: cover;
     }
 
     p {
@@ -60,37 +171,78 @@
   }
 }
 
+.store-sec {
+  flex-direction: column-reverse;
+}
+
 .store-info-swiper {
   .swiper-slide {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 2.0833vw;
+
+    h2 {
+      margin-bottom: 2.0833vw;
+    }
 
     ul {
-      display: flex;
-      gap: 24px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25vw;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 2.0833vw;
+
+      li {
+        width: 100%;
+
+        p {
+          width: 100%;
+          font-size: 0.625vw;
+        }
+      }
 
       div {
         width: 100%;
-        height: 12.4375rem;
-        margin-bottom: 24px;
-        background-size: cover;
+        height: 10.3646vw;
+        margin-bottom: 1.25vw;
+        background-size: contain;
+        background-position: center center;
         background-repeat: no-repeat;
       }
     }
+  }
 
-    li {
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      align-items: center;
-      width: 9.9375rem;
-      height: 16.1875rem;
+  @include desktop-less {
+    .swiper-slide {
+      h2 {
+        font-size: 3.6458vw;
+      }
 
       p {
-        @include pc-body4;
+        font-size: 1.8229vw;
+      }
+
+      ul {
+        display: none;
+      }
+    }
+  }
+
+  @include mobile-only {
+    width: 100%;
+    height: fit-content;
+    aspect-ratio: unset;
+
+    .swiper-slide {
+      gap: 0;
+
+      h2 {
+        display: none;
+      }
+
+      p {
+        @include tm-body3;
       }
     }
   }
@@ -98,17 +250,42 @@
 
 .store-info-desc {
   flex-grow: 1;
+  gap: 1.0417vw;
+
+  @include desktop-less {
+    justify-content: center;
+    gap: 3.125vw;
+    margin-bottom: 3.125vw;
+  }
+
+  @include mobile-only {
+    flex-grow: 0;
+    margin: 40px 0;
+    gap: 16px;
+  }
 }
 
 .store-info-btn {
-  height: 60px !important;
+  height: 3.125vw !important;
 
   p {
     @include pc-body3;
   }
+
+  @include desktop-less {
+    height: 6.25vw !important;
+  }
+
+  @include mobile-only {
+    height: 48px !important;
+  }
 }
 
 .store-img-swiper {
+  h2 {
+    display: none;
+  }
+
   .store-img {
     width: 100%;
     height: 100%;
@@ -118,32 +295,72 @@
   }
 
   .swiper-pagination-bullets {
-    bottom: 20px;
+    bottom: 24px;
   }
 
   .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
   }
+
+  @include mobile-only {
+    &.store-img-mobile {
+      width: 100%;
+      aspect-ratio: 358 / 483;
+
+      h2 {
+        display: block !important;
+      }
+
+      .swiper-slide {
+        div {
+          width: 100%;
+          aspect-ratio: 358 / 411;
+        }
+      }
+
+      .swiper-pagination-bullets {
+        bottom: 16px;
+      }
+    }
+  }
 }
 
 .refill-img {
-  width: 27.0625rem;
-  height: 27.0625rem;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   margin-bottom: 24px;
+  background-size: cover;
+  background-position: center center;
 }
 
 .online-img-ul {
-  display: flex;
-  gap: 24px;
+  li {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 
   div {
-    width: 220px;
-    height: 281px;
+    width: 11.4583vw;
+    aspect-ratio: 220 / 281;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     margin-bottom: 24px;
+  }
+
+  @include desktop-less {
+    gap: 3.125vw !important;
+
+    li {
+      margin-bottom: 40px;
+    }
+
+    div {
+      width: 26.0417vw;
+    }
   }
 }
 
@@ -153,11 +370,28 @@
   align-items: center;
 
   button {
-    width: 21.375rem;
+    width: 342px;
     margin-top: 40px;
   }
 
   p {
     @include pc-body3;
+  }
+
+  @include desktop-less {
+    button {
+      width: 312px;
+      height: 42px;
+    }
+
+    p {
+      @include tm-body3;
+    }
+  }
+
+  @include mobile-only {
+    button {
+      width: 172px;
+    }
   }
 }

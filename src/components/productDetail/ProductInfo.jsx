@@ -43,8 +43,8 @@ const ProductInfo = ({ productData }) => {
 
   return (
     <>
-      <h1 className="mb-0 text-left detail-sec-title ">{name}</h1>
-      <div className="flex flex-col  gap-5 text-body3">
+      <h1 className="mb-0 text-left detail-sec-title tablet:text-heading2-m">{name}</h1>
+      <div className="flex flex-col gap-5 text-body3">
         <p className="flex justify-between items-center">
           {type}
           <span>
@@ -62,7 +62,7 @@ const ProductInfo = ({ productData }) => {
             keyword.map((word, idx) => (keyword.length - 1 === idx ? `${word.note}` : `${word.note}, `))}
           {keyword !== undefined && typeof keyword === 'string' && `${keyword}`}
         </p>
-        <p className=" text-darkgrey-1">
+        <p className="text-darkgrey-1">
           {clickedMore && desc.length > 0 ? `${description} ` : desc}
           <span>
             <span
@@ -89,7 +89,7 @@ const ProductInfo = ({ productData }) => {
         />
       </div>
 
-      <div onClick={addToBag} className="mt-20">
+      <div onClick={addToBag} className="add-cart-btn">
         <BarButton type="filled" text="ADD TO BAG" />
       </div>
     </>

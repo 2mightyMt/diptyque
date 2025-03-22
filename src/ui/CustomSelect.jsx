@@ -27,13 +27,15 @@ const CustomSelect = ({ options, defaultValue, onChange, className }) => {
   };
 
   return (
-    <div className="relative " ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       {/* 선택 버튼 */}
       <button
         className={`flex items-center justify-between text-left text-body3 bg-white border border-darkgrey-3 hover:bg-gray-50 focus:outline-none ${className ? className : ''}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={selectedOption.value === '' ? 'text-grey-2' : ''}>{selectedOption.label}</span>
+        <span className={`tablet:text-body3-m ${selectedOption.value === '' ? 'text-grey-2' : ''}`}>
+          {selectedOption.label}
+        </span>
         <Icon
           name="keyboard_arrow_down"
           className={`w-5 h-5 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`}

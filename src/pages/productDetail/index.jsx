@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { productActions } from '../../store/modules/productSlice';
@@ -8,8 +8,10 @@ import BelovedSection from '../../components/productDetail/BelovedSection';
 import { categoryActions } from '../../store/modules/categorySlice';
 import ProductInfo from '../../components/productDetail/ProductInfo';
 import NotesSection from '../../components/productDetail/NotesSection';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import ProductImg from '../../components/productDetail/ProductImg';
+import { useScroll, useSpring } from 'framer-motion';
+import { cartActions } from '../../store/modules/cartSlice';
+import { Autoplay, Mousewheel, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -27,11 +29,18 @@ const ProductDetail = () => {
     return () => {
       dispatch(categoryActions.resetCategory());
       dispatch(productActions.resetProduct());
+      dispatch(cartActions.resetAddedToBag());
     };
   }, [productId]);
 
   const { scrollYProgress } = useScroll();
+  const { scrollXProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+  const scaleY = useSpring(scrollXProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
@@ -43,22 +52,57 @@ const ProductDetail = () => {
 
   return (
     <>
-      <div className="flex mt-header-h min-h-screen ">
-        <div className=" w-1/2 h-[100vh] overflow-y-auto snap-y snap-mandatory scrollbar-hide">
-          {options &&
-            options[0].images.detail &&
-            options[0].images.detail.map((img, idx) => <ProductImg key={idx} name={name} img={img} />)}
-          <motion.div className="progress" style={{ scaleX }} />
+      <div className="flex mt-header-h min-h-screen tablet:mt-header-h-m mobile:flex-col">
+        <div className="product-img-swiper-container w-1/2 mobile:w-full mobile:h-[512px]">
+          <Swiper
+            direction={'vertical'}
+            slidesPerView={1}
+            spaceBetween={30}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Mousewheel, Pagination, Autoplay]}
+            className="product-img-swiper mySwiper h-full mobile:hidden"
+          >
+            {options &&
+              options[0].images.detail &&
+              options[0].images.detail.map((img, idx) => (
+                <SwiperSlide key={idx} className="h-full">
+                  <img src={img} alt={`${name + idx}`} className="w-full h-full" />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Mousewheel, Pagination]}
+            className="product-img-swiper mySwiper h-full"
+          >
+            {options &&
+              options[0].images.detail &&
+              options[0].images.detail.map((img, idx) => (
+                <SwiperSlide key={idx} className="h-full">
+                  <img src={img} alt={`${name + idx}`} className="w-full h-full" />
+                </SwiperSlide>
+              ))}
+          </Swiper>
         </div>
 
-        <div className="w-1/2 text-body3 ">
-          <div className="sticky top-0 right-0 flex flex-col gap-5 p-[11.25rem] pt-20 tablet:px-6 tablet:py-10">
+        <div className="w-1/2 text-body3 mobile:w-full">
+          <div className="sticky top-0 right-0 flex flex-col gap-5 p-[9.3750vw] pt-20 tablet:px-6 tablet:py-10 mobile:px-4">
             <ProductInfo productData={productData} />
           </div>
         </div>
       </div>
 
-      <div className="pl-[50px]">
+      <div className="pl-[50px] overflow-hidden mobile:pl-4">
         {/* Notes section */}
         {(Array.isArray(notes) || Array.isArray(keyword)) && <NotesSection />}
 
@@ -66,9 +110,7 @@ const ProductDetail = () => {
         <BelovedSection popularProducts={popularProducts} />
       </div>
 
-      <div
-        className={`flex fixed bottom-[2rem] right-[11.25rem] justify-center items-center w-[37.0313rem] h-[3.625rem] bg-black text-white transition-all duration-300 ease-in opacity-0 z-0 ${addedToBag && 'opacity-100 z-10'}`}
-      >
+      <div className={`cart-added-btn ${addedToBag && 'opacity-100 z-10'}`}>
         <Icon name="keyboard_arrow_down" />
         ADDED TO BAG
       </div>

@@ -13,64 +13,61 @@ html {
   align-items: center;
   position: relative;
   width: 100%;
-  height: 100vh;
   overflow: clip;
 
   > div {
     overflow: hidden;
+    width: 100%;
+    height: 100vh;
   }
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 70%;
   }
-
-  h2 {
-    color: var(--hue-6);
-    margin: 0;
-    font-family: 'Azeret Mono', monospace;
-    font-size: 50px;
-    font-weight: 700;
-    letter-spacing: -3px;
-    line-height: 1.2;
-    position: absolute;
-    display: inline-block;
-    top: calc(50% - 25px);
-    left: calc(50% + 120px);
-  }
-}
-
-@include desktop-less {
-  .img-container {
-    > div {
-      width: 150px;
-      height: 200px;
-    }
-
-    img {
-      width: 150px;
-      height: 200px;
-    }
-  }
-}
-
-.progress {
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: var(--hue-6);
-  bottom: 50px;
-  transform: scaleX(0);
 }
 
 // ============================
 // NotesSection.jsx style
 
 .notes-swiper {
+  // height: 345px;
+
   .swiper-slide {
-    width: 21.5625rem !important;
-    height: 21.5625rem;
+    width: 345px !important;
+    height: 345px;
+
+    @include desktop-less {
+      width: 26.0417vw !important;
+      height: 26.0417vw;
+    }
+
+    @include mobile-only {
+      width: 42vw !important;
+      height: 42vw;
+    }
+  }
+}
+
+// ==============================
+// BelovedSection, BelovedItem.jsx style
+
+.beloved-sec {
+  img {
+    width: 100%;
+    height: 504px;
+    transition: all;
+    transition-duration: 700ms;
+    transition-timing-function: ease-in-out;
+
+    @include desktop-less {
+      height: 263px;
+    }
+
+    @include mobile-only {
+      height: 208px;
+    }
   }
 }

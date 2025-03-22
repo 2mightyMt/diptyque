@@ -86,12 +86,15 @@ $breakpoint-tablet: 768px !default;
 $breakpoint-desktop: 1024px !default;
 
 // ========================================
-// layout - 크기 정해지면 수정해서 써도 될 것 같아요
-// $grid: 1340px !default;
-// $p-tablet: 30px !default;
-// $p-mobile: 20px !default;
+// layout
 
-// $hdH: 80px;
-// $hdH-xl: 80px;
+// header size
+$header-h: 128px;
+$header-h-m: 76px;
+
+// section gap size
+$sec-gap-pc: 200px;
+$sec-gap-tablet: 150px;
+$sec-gap-mobile: 100px;
 
 // $ftH: 70px;
